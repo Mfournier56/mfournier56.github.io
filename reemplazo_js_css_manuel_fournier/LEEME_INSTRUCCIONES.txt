@@ -1,0 +1,45 @@
+SUSTITUCION DIRECTA JS Y CSS
+============================
+
+Este ZIP contiene dos ficheros completos:
+
+- script.js
+- style.css
+
+Sustituye los dos ficheros actuales de tu web por estos dos.
+
+No toques:
+
+- index.html
+- obras.xlsx
+- carpetas Habitats, Baloons, BrokenFrame, Other
+
+Pasos:
+
+1. Descomprime este ZIP.
+2. Copia script.js y style.css.
+3. Pegalos en la carpeta donde tienes index.html.
+4. Acepta sustituir los dos ficheros actuales.
+5. Abre script.js y cambia:
+
+email: 'tuemail@dominio.com'
+whatsapp: '346XXXXXXXX'
+
+por tus datos reales.
+
+6. Ejecuta:
+
+python -m http.server 8000
+
+7. Abre:
+
+http://localhost:8000
+
+8. Si sigue mostrando algo antiguo, pulsa Ctrl + F5.
+
+Correccion incluida:
+
+- Las imagenes se generan ahora con etiqueta HTML real <img>.
+- Ya no se imprime BrokenFrame/ima1.webp como texto.
+- Los botones WhatsApp y Email se generan como enlaces HTML reales.
+- Se elimina CSS roto o escapado.
