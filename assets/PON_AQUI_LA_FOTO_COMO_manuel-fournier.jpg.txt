@@ -1,0 +1,2 @@
+Guarda aqui tu foto con el nombre: manuel-fournier.jpg
+Opcional: guarda una imagen panoramica como header-bg.jpg
