@@ -1,13 +1,121 @@
-const CONFIG={email:'mfmfournier@yahoo.com',whatsapp:'34665687061',instagram:'https://www.instagram.com/mfournier1414/',excel:'obras.xlsx'};
-const SERIES={BrokenFrame:{folder:'BrokenFrame',label:'BrokenFrame'},Habitats:{folder:'Habitats',label:'Habitats'},Baloons:{folder:'Baloons',label:'Baloons'},Other:{folder:'Other',label:'OtherWorks'}};
-function normalizeSerie(value){const raw=String(value||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'');if(raw==='brokenframe'||raw==='brokenframes')return'BrokenFrame';if(raw==='habitats'||raw==='habitat')return'Habitats';if(raw==='baloons'||raw==='balloons'||raw==='baloon')return'Baloons';if(raw==='other'||raw==='otherworks'||raw==='otros')return'Other';return value}
-function getValue(obj,names){for(const name of names){if(obj[name]!==undefined&&obj[name]!==null&&String(obj[name]).trim()!=='')return obj[name]}return''}
-function buildPurchaseText(o){const title=o.titulo||o.imagen;return`Hola Manuel,\n\nEstoy interesado/a en esta obra:\n\nTítulo: ${title}\nSerie: ${o.serie}\nImagen: ${o.imagen}\nDimensiones: ${o.dimensiones}\nTécnica: ${o.tecnica}\nPrecio: ${o.precio}\n\n¿Podrías facilitarme más información?\n\nGracias.`}
-function addText(parent,tag,className,text){if(!text)return;const node=document.createElement(tag);node.className=className;node.textContent=text;parent.appendChild(node)}
-function makeCard(o){const folder=SERIES[o.serie]?.folder||o.serie;const title=o.titulo||o.imagen;const card=document.createElement('article');card.className='card';const media=document.createElement('div');media.className='work-media';const img=document.createElement('img');img.className='work-image';img.src=`${folder}/${o.imagen}`;img.alt=title;img.loading='lazy';img.decoding='async';media.appendChild(img);card.appendChild(media);const body=document.createElement('div');body.className='card-body';addText(body,'h3','',title);addText(body,'p','meta',o.dimensiones);addText(body,'p','meta',o.tecnica);addText(body,'p','price',o.precio);const actions=document.createElement('div');actions.className='acciones-compra';const text=encodeURIComponent(buildPurchaseText(o));const wa=document.createElement('a');wa.className='btn-whatsapp';wa.href=`https://wa.me/${CONFIG.whatsapp}?text=${text}`;wa.target='_blank';wa.rel='noopener';wa.textContent='WhatsApp';const mail=document.createElement('a');mail.className='btn-email';mail.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent(`Solicitud de compra - ${title}`)}&body=${text}`;mail.textContent='Email';actions.append(wa,mail);body.appendChild(actions);card.appendChild(body);return card}
-function updateArrows(shell){const g=shell.querySelector('.horizontal-gallery'),prev=shell.querySelector('.gallery-prev'),next=shell.querySelector('.gallery-next');const max=Math.max(0,g.scrollWidth-g.clientWidth);prev.disabled=g.scrollLeft<4;next.disabled=g.scrollLeft>max-4}
-function setupGallery(shell){const g=shell.querySelector('.horizontal-gallery'),prev=shell.querySelector('.gallery-prev'),next=shell.querySelector('.gallery-next');const step=()=>Math.max(g.clientWidth*.82,320);prev.addEventListener('click',()=>g.scrollBy({left:-step(),behavior:'smooth'}));next.addEventListener('click',()=>g.scrollBy({left:step(),behavior:'smooth'}));g.addEventListener('scroll',()=>updateArrows(shell),{passive:true});new ResizeObserver(()=>updateArrows(shell)).observe(g);updateArrows(shell)}
-function renderWorks(works){document.querySelectorAll('[data-series]').forEach(g=>{const serie=g.dataset.series;g.innerHTML='';const filtered=works.filter(w=>w.serie===serie);if(!filtered.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=`No hay obras cargadas todavía para ${SERIES[serie]?.label||serie}.`;g.appendChild(empty)}else filtered.forEach(o=>g.appendChild(makeCard(o)));updateArrows(g.closest('.gallery-shell'))})}
-async function loadExcel(){const response=await fetch(`${CONFIG.excel}?v=${Date.now()}`);if(!response.ok)throw new Error('No se ha podido leer obras.xlsx');const workbook=XLSX.read(await response.arrayBuffer(),{type:'array'});const rows=XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]],{defval:''});return rows.map(row=>{const imagen=String(getValue(row,['Imagen','imagen','IMAGEN'])).trim();const serie=normalizeSerie(getValue(row,['Serie','serie','SERIE']));return{imagen,serie,titulo:String(getValue(row,['Titulo','Título','titulo','TITULO'])||imagen).trim(),dimensiones:String(getValue(row,['Dimensiones','dimensiones','DIMENSIONES'])||'').trim(),tecnica:String(getValue(row,['Tecnica','Técnica','tecnica','TECNICA'])||'').trim(),precio:String(getValue(row,['Precio','precio','PRECIO'])||'Consultar').trim()}}).filter(w=>w.imagen&&SERIES[w.serie])}
-function setupCv(){const link=document.getElementById('cvNavLink'),section=document.getElementById('cv');if(!link||!section)return;link.addEventListener('click',e=>{e.preventDefault();section.hidden=false;requestAnimationFrame(()=>section.scrollIntoView({behavior:'smooth'}))});if(location.hash==='#cv')section.hidden=false}
-window.addEventListener('DOMContentLoaded',async()=>{document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('emailLink').href=`mailto:${CONFIG.email}`;document.getElementById('instagramLink').href=CONFIG.instagram;setupCv();document.querySelectorAll('.gallery-shell').forEach(setupGallery);try{renderWorks(await loadExcel())}catch(error){console.error(error);renderWorks([]);alert('No se ha podido cargar obras.xlsx. Revisa que esté junto a index.html y que las columnas sean Imagen, Serie, Titulo, Dimensiones, Tecnica y Precio.')}});
+const CONFIG = {
+  email: 'tuemail@dominio.com',
+  whatsapp: '346XXXXXXXX',
+  instagram: 'https://www.instagram.com/mfournier1414/',
+  excel: 'obras.xlsx'
+};
+
+const SERIES = {
+  Habitats: { folder: 'Habitats', label: 'Habitats' },
+  Baloons: { folder: 'Baloons', label: 'Baloons' },
+  BrokenFrame: { folder: 'BrokenFrame', label: 'BrokenFrame' },
+  Other: { folder: 'Other', label: 'OtherWorks' }
+};
+
+function normalizeSerie(value) {
+  const raw = String(value || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '');
+  if (raw === 'habitats' || raw === 'habitat') return 'Habitats';
+  if (raw === 'baloons' || raw === 'balloons' || raw === 'baloon') return 'Baloons';
+  if (raw === 'brokenframe' || raw === 'brokenframes') return 'BrokenFrame';
+  if (raw === 'other' || raw === 'otherworks' || raw === 'otros') return 'Other';
+  return value;
+}
+
+function getValue(obj, names) {
+  for (const name of names) {
+    if (obj[name] !== undefined && obj[name] !== null && String(obj[name]).trim() !== '') return obj[name];
+  }
+  return '';
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+function buildPurchaseText(obra) {
+  const title = obra.titulo || obra.imagen;
+  return `Hola Manuel,\n\nEstoy interesado/a en esta obra:\n\nTitulo: ${title}\nSerie: ${obra.serie}\nImagen: ${obra.imagen}\nDimensiones: ${obra.dimensiones}\nTecnica: ${obra.tecnica}\nPrecio: ${obra.precio}\n\nPodrias facilitarme mas informacion?\n\nGracias.`;
+}
+
+function makeCard(obra) {
+  const folder = SERIES[obra.serie]?.folder || obra.serie;
+  const imgPath = `${folder}/${obra.imagen}`;
+  const title = obra.titulo || obra.imagen;
+  const whatsappText = encodeURIComponent(buildPurchaseText(obra));
+  const emailSubject = encodeURIComponent(`Solicitud de compra - ${title}`);
+  const emailBody = encodeURIComponent(buildPurchaseText(obra));
+  const whatsappHref = `https://wa.me/${CONFIG.whatsapp}?text=${whatsappText}`;
+  const emailHref = `mailto:${CONFIG.email}?subject=${emailSubject}&body=${emailBody}`;
+
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.innerHTML = `
+    <figure class="work-media">
+      <img class="work-image" src="${escapeHtml(imgPath)}" alt="${escapeHtml(title)}" loading="lazy">
+    </figure>
+    <div class="card-body">
+      <h3>${escapeHtml(title)}</h3>
+      <p class="meta">${escapeHtml(obra.dimensiones)}</p>
+      <p class="meta">${escapeHtml(obra.tecnica)}</p>
+      <p class="price">${escapeHtml(obra.precio)}</p>
+      <div class="acciones-compra">
+        <a class="btn-whatsapp" href="${whatsappHref}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="btn-email" href="${emailHref}">Email</a>
+      </div>
+    </div>`;
+  return card;
+}
+
+function renderWorks(works) {
+  document.querySelectorAll('[data-series]').forEach(grid => {
+    const serie = grid.dataset.series;
+    grid.innerHTML = '';
+    const filtered = works.filter(work => work.serie === serie);
+    if (!filtered.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = `No hay obras cargadas todavia para ${SERIES[serie]?.label || serie}.`;
+      grid.appendChild(empty);
+      return;
+    }
+    filtered.forEach(obra => grid.appendChild(makeCard(obra)));
+  });
+}
+
+async function loadExcel() {
+  const response = await fetch(CONFIG.excel);
+  if (!response.ok) throw new Error('No se ha podido leer obras.xlsx');
+  const arrayBuffer = await response.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+  const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+  return rows.map(row => {
+    const imagen = String(getValue(row, ['Imagen', 'imagen', 'IMAGEN'])).trim();
+    const serie = normalizeSerie(getValue(row, ['Serie', 'serie', 'SERIE']));
+    return {
+      imagen,
+      serie,
+      titulo: String(getValue(row, ['Titulo', 'Título', 'titulo', 'TITULO']) || imagen).trim(),
+      dimensiones: String(getValue(row, ['Dimensiones', 'dimensiones', 'DIMENSIONES']) || '').trim(),
+      tecnica: String(getValue(row, ['Tecnica', 'Técnica', 'tecnica', 'TECNICA']) || '').trim(),
+      precio: String(getValue(row, ['Precio', 'precio', 'PRECIO']) || 'Consultar').trim()
+    };
+  }).filter(work => work.imagen && SERIES[work.serie]);
+}
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+  const emailLink = document.getElementById('emailLink');
+  if (emailLink) emailLink.href = `mailto:${CONFIG.email}`;
+  const instagramLink = document.getElementById('instagramLink');
+  if (instagramLink) instagramLink.href = CONFIG.instagram;
+  try {
+    const works = await loadExcel();
+    renderWorks(works);
+  } catch (error) {
+    console.error(error);
+    renderWorks([]);
+    alert('No se ha podido cargar obras.xlsx. Revisa que este junto a index.html y que las columnas se llamen Imagen, Serie, Titulo, Dimensiones, Tecnica y Precio.');
+  }
+});
