@@ -1,4 +1,4 @@
-const CONFIG={email:'tuemail@dominio.com',whatsapp:'346XXXXXXXX',instagram:'https://www.instagram.com/mfournier1414/',excel:'obras.xlsx'};
+const CONFIG={email:'mfmfournier@yahoo.com',whatsapp:'34665687061',instagram:'https://www.instagram.com/mfournier1414/',excel:'obras.xlsx'};
 const SERIES={BrokenFrame:{folder:'BrokenFrame',label:'BrokenFrame'},Habitats:{folder:'Habitats',label:'Habitats'},Baloons:{folder:'Baloons',label:'Baloons'},Other:{folder:'Other',label:'OtherWorks'}};
 function normalizeSerie(value){const raw=String(value||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'');if(raw==='brokenframe'||raw==='brokenframes')return'BrokenFrame';if(raw==='habitats'||raw==='habitat')return'Habitats';if(raw==='baloons'||raw==='balloons'||raw==='baloon')return'Baloons';if(raw==='other'||raw==='otherworks'||raw==='otros')return'Other';return value}
 function getValue(obj,names){for(const name of names){if(obj[name]!==undefined&&obj[name]!==null&&String(obj[name]).trim()!=='')return obj[name]}return''}
