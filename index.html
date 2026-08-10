@@ -3,61 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Manuel Fournier | Contemporary Artist</title>
   <meta name="description" content="Manuel Fournier. Contemporary Artist. Sculpture and Mixed Media.">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=bio-literal-20260810">
+  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script defer src="script.js?v=bio-literal-20260810"></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#inicio">Manuel Fournier</a>
-    <nav class="nav">
-      <a href="#inicio">Inicio</a>
-      <a href="#Habitats">Habitats</a>
-      <a href="#Baloons">Baloons</a>
-      <a href="#BrokenFrame">BrokenFrame</a>
-      <a href="#Other">OtherWorks</a>
-      <a href="#cv">CV</a>
-      <a href="#contacto">Contact</a>
-    </nav>
-  </header>
+<header class="site-header">
+  <a class="brand" href="#BrokenFrame">Manuel Fournier</a>
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="#BrokenFrame">BrokenFrame</a><a href="#Habitats">Habitats</a><a href="#Baloons">Baloons</a><a href="#Other">OtherWorks</a><a href="#bio" id="bioNavLink">BIO</a><a href="#contacto">Contact / Contacto</a>
+  </nav>
+</header>
+<main>
+  <section id="BrokenFrame" class="series-section first-section"><div class="section-heading"><h1>BrokenFrame</h1></div><div class="gallery-shell"><button class="gallery-arrow gallery-prev" type="button" aria-label="Anteriores">&#8249;</button><div class="horizontal-gallery" data-series="BrokenFrame" tabindex="0"></div><button class="gallery-arrow gallery-next" type="button" aria-label="Siguientes">&#8250;</button></div></section>
+  <section id="Habitats" class="series-section"><div class="section-heading"><h2>Habitats</h2></div><div class="gallery-shell"><button class="gallery-arrow gallery-prev" type="button" aria-label="Anteriores">&#8249;</button><div class="horizontal-gallery" data-series="Habitats" tabindex="0"></div><button class="gallery-arrow gallery-next" type="button" aria-label="Siguientes">&#8250;</button></div></section>
+  <section id="Baloons" class="series-section"><div class="section-heading"><h2>Baloons</h2></div><div class="gallery-shell"><button class="gallery-arrow gallery-prev" type="button" aria-label="Anteriores">&#8249;</button><div class="horizontal-gallery" data-series="Baloons" tabindex="0"></div><button class="gallery-arrow gallery-next" type="button" aria-label="Siguientes">&#8250;</button></div></section>
+  <section id="Other" class="series-section"><div class="section-heading"><h2>OtherWorks</h2></div><div class="gallery-shell"><button class="gallery-arrow gallery-prev" type="button" aria-label="Anteriores">&#8249;</button><div class="horizontal-gallery" data-series="Other" tabindex="0"></div><button class="gallery-arrow gallery-next" type="button" aria-label="Siguientes">&#8250;</button></div></section>
 
-  <main>
-    
+  <section id="bio" class="bio-section" hidden>
+    <div class="bio-heading"><h2>BIO</h2></div>
+    <div id="bioStatus" class="bio-status">Cargando biografía...</div>
+    <div id="bioContent" class="bio-content" aria-live="polite"></div>
+  </section>
 
-    <section id="Habitats" class="series-section">
-      <div class="section-heading"><h2>Habitats</h2></div>
-      <div class="grid" data-series="Habitats"></div>
-    </section>
-    <section id="Baloons" class="series-section">
-      <div class="section-heading"><h2>Baloons</h2></div>
-      <div class="grid" data-series="Baloons"></div>
-    </section>
-    <section id="BrokenFrame" class="series-section">
-      <div class="section-heading"><h2>BrokenFrame</h2></div>
-      <div class="grid" data-series="BrokenFrame"></div>
-    </section>
-    <section id="Other" class="series-section">
-      <div class="section-heading"><h2>OtherWorks</h2></div>
-      <div class="grid" data-series="Other"></div>
-    </section>
-
-    <section id="cv" class="text-section">
-      <h2>CV</h2>
-      <p>Sustituye este texto por tu biografía artística, exposiciones, concursos, statement y trayectoria.</p>
-    </section>
-
-    <section id="contacto" class="text-section contact-section">
-      <h2>Contact</h2>
-      <p>For acquisitions, commissions or collaborations.</p>
-      <div class="contact-buttons">
-        <a id="emailLink" class="button" href="#">Email</a>
-        <a id="instagramLink" class="button secondary" href="https://www.instagram.com/mfournier1414/" target="_blank" rel="noopener">Instagram</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">© <span id="year"></span> Manuel Fournier</footer>
-  <script src="script.js"></script>
+  <section id="contacto" class="contact-section"><div class="contact-inner"><h2>Contact / Contacto</h2><p>For acquisitions, commissions and exhibition enquiries.</p><p>Para adquisiciones, encargos y consultas expositivas.</p><div class="contact-buttons"><a id="emailLink" class="button" href="mailto:mfmfournier@yahoo.com">Email / Correo</a><a id="instagramLink" class="button secondary" href="https://www.instagram.com/mfournier1414/" target="_blank" rel="noopener">Instagram</a></div></div></section>
+</main>
+<footer class="footer">© <span id="year"></span> Manuel Fournier</footer>
 </body>
 </html>
