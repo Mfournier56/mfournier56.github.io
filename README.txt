@@ -1,25 +1,29 @@
-MANUEL FOURNIER - PAQUETE COMPLETO DEFINITIVO
+MANUEL FOURNIER - VERSION SEO COMPLETA
 
-Sustituye todos estos archivos en la raiz:
-- index.html
-- style.css
-- script.js
-- bio.txt
-- obras.xlsx
+Sustituye en la raíz todos los archivos y la carpeta assets incluidos en este ZIP.
 
-Conserva las carpetas de imagenes:
+Incluye:
+- index.html con canonical, Open Graph, Twitter Card, hreflang y JSON-LD;
+- style.css y script.js actualizados;
+- bio.txt literal y completo;
+- obras.xlsx con Balloons corregido;
+- robots.txt;
+- sitemap.xml con imágenes de las obras;
+- site.webmanifest;
+- assets/seo-cover.jpg (1200 x 630, sin recortar la obra);
+- favicon e iconos.
+
+Carpetas de obra que debes conservar en la web:
 - BrokenFrame
 - Habitats
-- Baloons
+- Balloons
 - Other
 
-BIO se muestra literalmente dentro de un bloque preformateado:
-- aparece todo el contenido de bio.txt;
-- se conservan todas las lineas y el orden;
-- no se agrupa por anos;
-- no se elimina texto;
-- no se muestran solo primeras lineas.
+IMPORTANTE: renombra la carpeta antigua Baloons a Balloons.
 
-Contacto configurado:
+URL canónica configurada:
+https://mfournier56.github.io/
+
+Contacto:
 - mfmfournier@yahoo.com
 - 34665687061
